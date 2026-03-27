@@ -377,8 +377,6 @@ async function connectToWA() {
         command: commandName,
         args,
         q,
-        apikey,
-        baseurl,
         isGroup,
         sender,
         senderNumber,
