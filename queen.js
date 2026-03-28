@@ -20,7 +20,7 @@ const express = require("express");
 const app = express();
 const por = require("./session");
 const port = por.PORT;
-const ownerNumber = ["94717775628"];
+const ownerNumber = ["94779912589"];
 if (!app) return;
 // Session directory
 const SESSION_DIR = "./sessions";
@@ -91,7 +91,7 @@ async function connectToWA() {
   const getPrefix = () => config.PREFIX;
   const getWelcome = () => config.WELCOME;
   //===========================
-  console.log("🔥 QUEEN ANJU XPRO is starting...");
+  console.log("𝓠𝓮𝓮𝓷 𝓥𝓮𝓷𝓾𝓼 𝓜𝓓 𝓥1.0.3 is starting...");
   const { state, saveCreds } = await useMultiFileAuthState(
     __dirname + "/sessions/"
   );
@@ -119,62 +119,58 @@ async function connectToWA() {
       console.log("connected to whatsapp ✅");
       // Assuming `config` contains all the settings
       let up = `
-          🚀 **© 𝚀𝚄𝙴𝙴𝙽 𝙰𝙽𝙹𝚄 𝗑ᴾᴿᴼ 💚 Connected Successfully!** ✅ 
+          *𝓠𝓮𝓮𝓷 𝓥𝓮𝓷𝓾𝓼 👸 Connected Successfully!* ✅  
           
-          --- **🎉 Welcome to © 𝚀𝚄𝙴𝙴𝙽 𝙰𝙽𝙹𝚄 𝗑ᴾᴿᴼ 💚!** 🎉 
-          ✦» 𝚅𝚎𝚛𝚜𝚒𝚘𝚗 : ${require("./package.json").version}
-          ✦» 𝙿𝚕𝚊𝚝𝚏𝚘𝚛𝚖 : ${os.platform()}
-          ✦» 𝙷𝚘𝚜𝚝 : ${os.hostname()}
-          ✦» 𝙾𝚆𝙽𝙴𝚁: ${config.BOT_NUMBER}
+          --- *𝓠𝓮𝓮𝓷 𝓥𝓮𝓷𝓾𝓼 👸* ---
+          ✦» 𝚅𝚎𝚛𝚜𝚒𝚘𝚗   : ${require("./package.json").version}
+          ✦» 𝙿𝚕𝚊𝚝𝚏𝚘𝚛𝚖  : ${os.platform()}
+          ✦» 𝙷𝚘𝚜𝚝      : ${os.hostname()}
+          ✦» 𝙾𝚆𝙽𝙴𝚁     : ${config.BOT_NUMBER}
           
-          --- **Current Settings:**
+          --- *⚙️ Current Configurations:* ---
           ✦» **PREFIX:** ${config.PREFIX}
           ✦» **MODE:** ${config.MODE}
-          ✦» **AUTO READ STATUS:** ${
-            config.AUTOREADSTATUS ? "Enabled" : "Disabled"
-          }
-          ✦» **READ CMD:** ${config.READCMD ? "Enabled" : "Disabled"}
-          ✦» **AUTO VOICE:** ${config.AUTOVOICE ? "Enabled" : "Disabled"}
-          ✦» **AUTO STICKER:** ${config.AUTOSTICKER ? "Enabled" : "Disabled"}
-          ✦» **AUTO REPLY:** ${config.AUTOREPLY ? "Enabled" : "Disabled"}
-          ✦» **AUTO REACT:** ${config.AUTOREACT ? "Enabled" : "Disabled"}
-          ✦» **WELCOME:** ${config.WELCOME ? "Enabled" : "Disabled"}
-          ✦» **ANTI BAD:** ${config.ANTIBAD ? "Enabled" : "Disabled"}
-          ✦» **ANTI BOT:** ${config.ANTIBOT ? "Enabled" : "Disabled"}
-          ✦» **ANTI LINK:** ${config.ANTILINK ? "Enabled" : "Disabled"}
-          ✦» **ALWAYS ONLINE:** ${config.ALLWAYSONLINE ? "Enabled" : "Disabled"}
-          ✦» **MOROCCO BLOCK:** ${config.MOROCCOBLOCK ? "Enabled" : "Disabled"}
-          ✦» **AUTO NEWS:** ${config.AUTONEWS ? "Enabled" : "Disabled"}
-          ✦» **AUTO TYPING:** ${config.AUTOTYPING ? "Enabled" : "Disabled"}
-          ✦» **AUTO RECORDING:** ${
-            config.AUTORECORDING ? "Enabled" : "Disabled"
-          }
+          ✦» **AUTO READ STATUS:** ${config.AUTOREADSTATUS ? "Active ✅" : "Inactive ❌"}
+          ✦» **READ CMD:** ${config.READCMD ? "Active ✅" : "Inactive ❌"}
+          ✦» **AUTO VOICE:** ${config.AUTOVOICE ? "Active ✅" : "Inactive ❌"}
+          ✦» **AUTO STICKER:** ${config.AUTOSTICKER ? "Active ✅" : "Inactive ❌"}
+          ✦» **AUTO REPLY:** ${config.AUTOREPLY ? "Active ✅" : "Inactive ❌"}
+          ✦» **AUTO REACT:** ${config.AUTOREACT ? "Active ✅" : "Inactive ❌"}
+          ✦» **WELCOME:** ${config.WELCOME ? "Active ✅" : "Inactive ❌"}
+          ✦» **ANTI BAD:** ${config.ANTIBAD ? "Active ✅" : "Inactive ❌"}
+          ✦» **ANTI BOT:** ${config.ANTIBOT ? "Active ✅" : "Inactive ❌"}
+          ✦» **ANTI LINK:** ${config.ANTILINK ? "Active ✅" : "Inactive ❌"}
+          ✦» **ALWAYS ONLINE:** ${config.ALLWAYSONLINE ? "Active ✅" : "Inactive ❌"}
+          ✦» **MOROCCO BLOCK:** ${config.MOROCCOBLOCK ? "Active ✅" : "Inactive ❌"}
+          ✦» **AUTO NEWS:** ${config.AUTONEWS ? "Active ✅" : "Inactive ❌"}
+          ✦» **AUTO TYPING:** ${config.AUTOTYPING ? "Active ✅" : "Inactive ❌"}
+          ✦» **AUTO RECORDING:** ${config.AUTORECORDING ? "Active ✅" : "Inactive ❌"}
       
-          --- Thank you for using **© 𝚀𝚄𝙴𝙴𝙽 𝙰𝙽𝙹𝚄 𝗑ᴾᴿᴼ 💚**. 
-          We're here to make your experience enjoyable and seamless. 
-          If you need any help or have questions, don't hesitate to ask. 
+          --- *Thank you for choosing 𝓠𝓮𝓮𝓷 𝓥𝓮𝓷𝓾𝓼 👸* ---
+          We're here to make your WhatsApp experience more powerful.
+          If you encounter any issues, feel free to reach out.
           
-          **Enjoy your time with us!** 😊`;
+          *Powering your connection!* 🛡️`;
 
       conn.sendMessage(conn.user.id, {
         text: up,
         contextInfo: {
-          mentionedJid: ["94717775628@s.whatsapp.net"], // specify mentioned JID(s) if any
+          mentionedJid: ["94779912589@s.whatsapp.net"], // specify mentioned JID(s) if any
           groupMentions: [],
           forwardingScore: 999,
           isForwarded: true,
           forwardedNewsletterMessageInfo: {
-            newsletterJid: "120363299978149557@newsletter",
-            newsletterName: "© 𝚀𝚄𝙴𝙴𝙽 𝙰𝙽𝙹𝚄 𝗑ᴾᴿᴼ 💚",
+            newsletterJid: "120363408995953713@newsletter",
+            newsletterName: "𝓠𝓾𝓮𝓮𝓷 𝓥𝓮𝓷𝓾𝓼 𝓜𝓓 𝓥1.0.3 👸",
             serverMessageId: 999,
           },
           externalAdReply: {
-            title: "© 𝚀𝚄𝙴𝙴𝙽 𝙰𝙽𝙹𝚄 𝗑ᴾᴿᴼ 💚",
-            body: " ©𝐌𝐑 𝐑𝐀𝐒𝐇𝐌𝐈𝐊𝐀 𝐎𝐅𝐂 💚",
+            title: "𝓠𝓾𝓮𝓮𝓷 𝓥𝓮𝓷𝓾𝓼 𝓜𝓓 𝓥1.0.3 👸💛",
+            body: "© 𝐌𝐑. 𝐇𝐀𝐍𝐒𝐀𝐊𝐀 𝐅𝐄𝐑𝐍𝐀𝐍𝐃𝐎 𝐎𝐅𝐂",
             mediaType: 1,
-            sourceUrl: "https://github.com/Mrrashmika",
+            sourceUrl: "https://wa.me/94779912589?text=Hey%20Hansaka%2C%20I%20am%20from%20Venus%20MD%20Whatsapp%20bot",
             thumbnailUrl:
-              "https://raw.githubusercontent.com/RASH-DATA/ANJU-DATA/refs/heads/main/LOGOS/6152181515400889311.jpg", // This should match the image URL provided above
+              "https://i.ibb.co/0V2BdtpJ/Whats-App-Image-2026-03-28-at-12-07-53-AM.jpg", // This should match the image URL provided above
             renderLargerThumbnail: false,
             showAdAttribution: true,
           },
@@ -399,7 +395,7 @@ async function connectToWA() {
 }
 if (!app) return;
 app.get("/", (req, res) => {
-  res.send("hey I am alive, Queen_Anju Is started✅");
+  res.send("hey I am alive, 𝓠𝓾𝓮𝓮𝓷 𝓥𝓮𝓷𝓾𝓼 𝓜𝓓 Is started✅");
 });
 app.listen(port, () =>
   console.log(`Server listening on port http://localhost:${port}`)
