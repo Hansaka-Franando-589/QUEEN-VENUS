@@ -21,11 +21,14 @@ const app = express();
 const por = require("./session");
 const port = por.PORT;
 const ownerNumber = ["94779912589"];
+
 if (!app) return;
+
 // Session directory
 const SESSION_DIR = "./sessions";
 if (!fs.existsSync(SESSION_DIR)) fs.mkdirSync(SESSION_DIR);
 const sess = require("./session");
+
 async function sessdl() {
   try {
     // Extract the Base64 encoded session data
@@ -37,15 +40,15 @@ async function sessdl() {
     // Delete the SESSION_DIR if it exists
     if (await fs.promises.stat(SESSION_DIR).catch(() => false)) {
       await fs.promises.rm(SESSION_DIR, { recursive: true, force: true });
-      console.log("✅ Existing session directory deleted.");
+      console.log("🧹 [ 👑 Queen Venus ] Existing session directory cleared.");
     }
 
     // Recreate the directory
     try {
       await fs.promises.mkdir(SESSION_DIR, { recursive: true });
-      console.log("📁 New session directory created.");
+      console.log("📁 [ 👑 Queen Venus ] New session directory safely created.");
     } catch (err) {
-      console.error("❌ Error creating session directory:", err);
+      console.error("❌ [ 👑 Queen Venus ] Error creating session directory:", err);
       return;
     }
 
@@ -61,37 +64,41 @@ async function sessdl() {
       
       // Write to creds.json
       await fs.promises.writeFile(credsPath, JSON.stringify(sessionData, null, 2));
-      console.log("✅ Session data decoded and saved to creds.json");
+      console.log("🔐 [ 👑 Queen Venus ] Session data successfully decoded and saved.");
     } catch (err) {
-      console.error("❌ Error processing session data:", err.message);
+      console.error("❌ [ 👑 Queen Venus ] Error processing session data:", err.message);
       
       // More specific error messages
       if (err instanceof SyntaxError) {
-        console.error("Invalid JSON format in session data");
+        console.error("⚠️ [ 👑 Queen Venus ] Invalid JSON format found in session data.");
       } else if (err.message.includes("Invalid base64")) {
-        console.error("Invalid Base64 encoding in session data");
+        console.error("⚠️ [ 👑 Queen Venus ] Invalid Base64 encoding in session data.");
       }
       throw err;
     }
   } catch (err) {
-    console.error("❌ Unexpected error in sessdl:", err);
+    console.error("❌ [ 👑 Queen Venus ] Unexpected error in session setup:", err);
     throw err;
   }
 }
+
 //=====================================================
+
 async function connectToWA() {
   try {
     await sessdl();
   } catch (error) {
-    console.error("Error during session download:", error);
+    console.error("❌ [ 👑 Queen Venus ] Error during session download:", error);
     return;
   }
+
   const { loadCommands, handleCommand } = require("./src/utils/commandHandler");
   const config = require("./src/config/settings.cjs");
   const getPrefix = () => config.PREFIX;
   const getWelcome = () => config.WELCOME;
+  
   //===========================
-  console.log("𝓠𝓮𝓮𝓷 𝓥𝓮𝓷𝓾𝓼 𝓜𝓓 𝓥1.0.3 is starting...");
+  console.log("🚀 [ 👑 Queen Venus ] System is booting up... (Version 1.0.3)");
   const { state, saveCreds } = await useMultiFileAuthState(
     __dirname + "/sessions/"
   );
@@ -112,24 +119,31 @@ async function connectToWA() {
       if (
         lastDisconnect.error.output.statusCode !== DisconnectReason.loggedOut
       ) {
+        console.log("🔄 [ 👑 Queen Venus ] Connection dropped. Reconnecting...");
         connectToWA();
+      } else {
+        console.log("⚠️ [ 👑 Queen Venus ] Logged out from WhatsApp. Please scan QR again.");
       }
     } else if (connection === "open") {
-      console.log("🔥 Installing... ");
-      console.log("connected to whatsapp ✅");
-      // Assuming `config` contains all the settings
+      console.log("🔥 [ 👑 Queen Venus ] Authenticating and Installing modules...");
+      console.log("✅ [ 👑 Queen Venus ] Successfully Connected to WhatsApp!");
+      
+      // Beautifully formatted WhatsApp status message
       let up = `
-          *𝓠𝓮𝓮𝓷 𝓥𝓮𝓷𝓾𝓼 👸 Connected Successfully!* ✅  
-          
+      *𝓠𝓮𝓮𝓷 𝓥𝓮𝓷𝓾𝓼 👸 Connected Successfully!* ✅  
+      
           --- *𝓠𝓮𝓮𝓷 𝓥𝓮𝓷𝓾𝓼 👸* ---
+
           ✦» 𝚅𝚎𝚛𝚜𝚒𝚘𝚗   : ${require("./package.json").version}
           ✦» 𝙿𝚕𝚊𝚝𝚏𝚘𝚛𝚖  : ${os.platform()}
           ✦» 𝙷𝚘𝚜𝚝      : ${os.hostname()}
           ✦» 𝙾𝚆𝙽𝙴𝚁     : ${config.BOT_NUMBER}
           
           --- *⚙️ Current Configurations:* ---
+
           ✦» **PREFIX:** ${config.PREFIX}
           ✦» **MODE:** ${config.MODE}
+
           ✦» **AUTO READ STATUS:** ${config.AUTOREADSTATUS ? "Active ✅" : "Inactive ❌"}
           ✦» **READ CMD:** ${config.READCMD ? "Active ✅" : "Inactive ❌"}
           ✦» **AUTO VOICE:** ${config.AUTOVOICE ? "Active ✅" : "Inactive ❌"}
@@ -145,17 +159,18 @@ async function connectToWA() {
           ✦» **AUTO NEWS:** ${config.AUTONEWS ? "Active ✅" : "Inactive ❌"}
           ✦» **AUTO TYPING:** ${config.AUTOTYPING ? "Active ✅" : "Inactive ❌"}
           ✦» **AUTO RECORDING:** ${config.AUTORECORDING ? "Active ✅" : "Inactive ❌"}
-      
+
           --- *Thank you for choosing 𝓠𝓮𝓮𝓷 𝓥𝓮𝓷𝓾𝓼 👸* ---
+
           We're here to make your WhatsApp experience more powerful.
-          If you encounter any issues, feel free to reach out.
-          
+          If you encounter any issues, feel free to reach out. 
+
           *Powering your connection!* 🛡️`;
 
       conn.sendMessage(conn.user.id, {
         text: up,
         contextInfo: {
-          mentionedJid: ["94779912589@s.whatsapp.net"], // specify mentioned JID(s) if any
+          mentionedJid: ["94779912589@s.whatsapp.net"], 
           groupMentions: [],
           forwardingScore: 999,
           isForwarded: true,
@@ -170,7 +185,7 @@ async function connectToWA() {
             mediaType: 1,
             sourceUrl: "https://wa.me/94779912589?text=Hey%20Hansaka%2C%20I%20am%20from%20Venus%20MD%20Whatsapp%20bot",
             thumbnailUrl:
-              "https://i.ibb.co/0V2BdtpJ/Whats-App-Image-2026-03-28-at-12-07-53-AM.jpg", // This should match the image URL provided above
+              "https://i.ibb.co/0V2BdtpJ/Whats-App-Image-2026-03-28-at-12-07-53-AM.jpg", 
             renderLargerThumbnail: false,
             showAdAttribution: true,
           },
@@ -192,6 +207,7 @@ async function connectToWA() {
     fetchJson,
   } = require("./src/utils/functions");
   const { sms, downloadMediaMessage } = require("./src/utils/msg");
+  
   //==========================================================================
   conn.ev.on("messages.upsert", async (mek) => {
     if (
@@ -199,7 +215,7 @@ async function connectToWA() {
       mek.key &&
       mek.key.remoteJid !== "status@broadcast"
     ) {
-      await conn.readMessages([mek.key]); // Mark the message as read but don't send delivery receipts
+      await conn.readMessages([mek.key]); 
     }
     mek = mek.messages[0];
     if (!mek.message) return;
@@ -207,6 +223,7 @@ async function connectToWA() {
       getContentType(mek.message) === "ephemeralMessage"
         ? mek.message.ephemeralMessage.message
         : mek.message;
+        
     if (
       mek.key &&
       mek.key.remoteJid === "status@broadcast" &&
@@ -215,28 +232,26 @@ async function connectToWA() {
       const participant = mek.key.participant || mek.key.remoteJid;
       if (!participant) {
         console.error(
-          "Participant or remoteJid is undefined. Skipping reaction."
+          "⚠️ [ 👑 Queen Venus ] Participant or remoteJid is undefined. Skipping reaction."
         );
         return;
       }
 
-      // Get the bot's user ID
       const botId =
         conn.user && conn.user.id
           ? conn.user.id.split(":")[0] + "@s.whatsapp.net"
           : null;
       if (!botId) {
-        console.error("Bot's user ID not available. Skipping reaction.");
+        console.error("⚠️ [ 👑 Queen Venus ] Bot's user ID not available. Skipping reaction.");
         return;
       }
 
-      // React to the status
       await conn.sendMessage(
         mek.key.remoteJid,
         {
           react: {
             key: mek.key,
-            text: `${config.EMOJI}`, // Reaction emoji
+            text: `${config.EMOJI}`, 
           },
         },
         {
@@ -245,6 +260,7 @@ async function connectToWA() {
       );
       await conn.readMessages([mek.key]);
     }
+
     const prefix = getPrefix();
     const m = sms(conn, mek);
     const type = getContentType(mek.message);
@@ -274,13 +290,12 @@ async function connectToWA() {
         : type == "templateButtonReplyMessage"
         ? mek.message.templateButtonReplyMessage &&
           mek.message.templateButtonReplyMessage.selectedId
-        : type === "extendedTextMessage"
-        ? mek.message.extendedTextMessage.text
         : type == "imageMessage" && mek.message.imageMessage.caption
         ? mek.message.imageMessage.caption
         : type == "videoMessage" && mek.message.videoMessage.caption
         ? mek.message.videoMessage.caption
         : "";
+        
     const isCmd = body.startsWith(prefix);
     const command = isCmd
       ? body.slice(prefix.length).trim().split(" ").shift().toLowerCase()
@@ -308,54 +323,39 @@ async function connectToWA() {
     const groupAdmins = isGroup ? await getGroupAdmins(participants) : "";
     const isBotAdmins = isGroup ? groupAdmins.includes(botNumber2) : false;
     const isAdmins = isGroup ? groupAdmins.includes(sender) : false;
+    
     const reply = (teks) => {
       conn.sendMessage(from, { text: teks }, { quoted: mek });
     };
+
     conn.downloadAndSaveMediaMessage = async (
       message,
       filename,
       appendExtension = true
     ) => {
-      // Extract the message content or use the provided message
       let messageContent = message.msg ? message.msg : message;
-
-      // Extract the MIME type of the message, default to an empty string if not available
       let mimeType = (message.msg || message).mimetype || "";
-
-      // Determine the media type (e.g., "image", "video") by checking the MIME type or message type
       let mediaType = message.mtype
         ? message.mtype.replace(/Message/gi, "")
         : mimeType.split("/")[0];
 
-      // Download the content of the message as a stream
       const mediaStream = await downloadContentFromMessage(
         messageContent,
         mediaType
       );
-
-      // Initialize an empty buffer to store the downloaded data
       let mediaBuffer = Buffer.from([]);
-
-      // Concatenate the data chunks into the buffer
       for await (const chunk of mediaStream) {
         mediaBuffer = Buffer.concat([mediaBuffer, chunk]);
       }
 
-      // Detect the file type and extension from the buffer
       let detectedFileType = await FileType.fromBuffer(mediaBuffer);
-
-      // Construct the file name, optionally appending the detected file extension
       let finalFileName = appendExtension
         ? `${filename}.${detectedFileType.ext}`
         : filename;
 
-      // Save the buffer to the file
       await fs.writeFileSync(finalFileName, mediaBuffer);
-
-      // Return the file name
       return finalFileName;
     };
-   
 
     //======================================================================
     if (isCmd) {
@@ -390,16 +390,19 @@ async function connectToWA() {
         reply,
       });
     }
-
   });
 }
+
 if (!app) return;
+
 app.get("/", (req, res) => {
-  res.send("hey I am alive, 𝓠𝓾𝓮𝓮𝓷 𝓥𝓮𝓷𝓾𝓼 𝓜𝓓 Is started✅");
+  res.send("✨ Hey I am alive! 𝓠𝓾𝓮𝓮𝓷 𝓥𝓮𝓷𝓾𝓼 𝓜𝓓 is up and running securely. ✅");
 });
+
 app.listen(port, () =>
-  console.log(`Server listening on port http://localhost:${port}`)
+  console.log(`🌐 [ 👑 Queen Venus ] Server perfectly listening on http://localhost:${port}`)
 );
+
 setTimeout(() => {
   connectToWA();
 }, 4000);
